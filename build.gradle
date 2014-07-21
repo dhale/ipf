@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+defaultTasks 'compileJava'
+
+description = "Seismic image processing for geologic faults"
+sourceCompatibility = 1.7
+
+sourceSets {
+  main {
+    output.classesDir = 'build/classes'
+    output.resourcesDir = output.classesDir
+    java {
+      srcDir 'src'
+      exclude '**/new/**','**/old/**'
+    }
+  }
+}
+
+dependencies {
+  compile fileTree('../jtk/build/libs') // for edu_mines_jtk.jar
+  compile fileTree('../jtk/libs') // jars provided with the Mines JTK
+}
