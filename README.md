@@ -27,7 +27,7 @@ version of the computationally efficient scan over fault strikes and dips has
 been used in both commercial and in-house systems for seismic interpretation.
 
 #### FaultSkinner (new in 2014)
-constructs fault skins comprised of fault cells. A fault cell is a point
+Constructs fault skins comprised of fault cells. A fault cell is a point
 located on a fault, with an associated fault likelihood, strike and dip. A
 fault skin is a linked collection of fault cells used to walk within a seismic
 image, up and down along fault curves (tangent to fault dip) and left and
@@ -35,15 +35,15 @@ right along fault traces (tangent to fault strike). A fault skin is a
 fit-for-purpose representation of a fault that is simpler than a surface mesh.
 
 #### FaultSlipper (new in 2014)
-uses differences between smoothed seismic amplitudes on opposite sides of
-fault skins to estimate fault dip slips. (Does not estimate strike slips.)
-Also includes methods to construct a complete field of fault dip-slip vectors,
-and to use those vectors to undo faulting apparent in a seismic image.
-*Unfaulting* a seismic image is one way to assess the accuracy of the
-estimated dip slips.
+Estimates fault dip slips using differences among smoothed seismic amplitudes
+on opposite sides of fault skins to estimate fault dip slips. (Does not
+estimate strike slips.) Also includes methods to construct a complete field of
+fault dip-slip vectors, and to use those vectors to undo faulting apparent in
+a seismic image. *Unfaulting* a seismic image is one way to assess the
+accuracy of the estimated dip slips.
 
 #### FakeData (new in 2014)
-generates synthetic seismic images useful for research and testing.
+Generates synthetic seismic images useful for research and testing.
 
 ---
 Copyright (c) 2014, Dave Hale. All rights reserved.
