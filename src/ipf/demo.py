@@ -44,21 +44,21 @@ minSkinSize = 3000
 minThrow = 0.01
 maxThrow = 15.0
 
-# Directory for saved png images. If None, png images will not be saved.
+# Directory for saved png images. If None, png images will not be saved;
+# otherwise, must create the specified directory before running this script.
 #pngDir = None
 pngDir = "../../png/"
 
 # Processing begins here. When experimenting with one part of this demo, we
 # can comment out earlier parts that have already written results to files.
 def main(args):
-  #goFakeData()
-  #goSlopes()
-  #goScan()
-  #goThin()
-  #goStat()
-  #goSmooth()
+  goFakeData()
+  goSlopes()
+  goScan()
+  goThin()
+  goSmooth()
   goSkin()
-  #goSlip()
+  goSlip()
 
 def goFakeData():
   #sequence = 'A' # 1 episode of faulting only
@@ -221,18 +221,20 @@ def goSlip():
   print ", after =",len(skins)
   removeAllSkinFiles(fskbase)
   writeSkins(fskbase,skins)
-  smark = -1000.0
+  smark = -999.999
   s1,s2,s3 = fsl.getDipSlips(skins,smark)
   writeImage(fs1file,s1)
   writeImage(fs2file,s2)
   writeImage(fs3file,s3)
-  plot3(gx,skins=skins,smax=10.0)
-  plot3(gx,s1,cmin=-0.01,cmax=10.0,cmap=jetFillExceptMin(1.0))
+  plot3(gx,skins=skins,smax=10.0,png="skinss1")
+  plot3(gx,s1,cmin=-0.01,cmax=10.0,cmap=jetFillExceptMin(1.0),
+        clab="Fault throw (samples)",png="gxs1")
   s1,s2,s3 = fsl.interpolateDipSlips([s1,s2,s3],smark)
-  plot3(gx,s1,cmin=0.0,cmax=10.0,cmap=jetFill(0.3))
+  plot3(gx,s1,cmin=0.0,cmax=10.0,cmap=jetFill(0.3),
+        clab="Fault throw (samples)",png="gxs1i")
   gw = fsl.unfault([s1,s2,s3],gx)
-  plot3(gw)
   plot3(gx)
+  plot3(gw,clab="Amplitude",png="gw")
 
 #############################################################################
 # graphics
