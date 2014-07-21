@@ -35,12 +35,11 @@ right along fault traces (tangent to fault strike). A fault skin is a
 fit-for-purpose representation of a fault that is simpler than a surface mesh.
 
 #### FaultSlipper (new in 2014)
-Estimates fault dip slips using differences among smoothed seismic amplitudes
-on opposite sides of fault skins to estimate fault dip slips. (Does not
-estimate strike slips.) Also includes methods to construct a complete field of
-fault dip-slip vectors, and to use those vectors to undo faulting apparent in
-a seismic image. *Unfaulting* a seismic image is one way to assess the
-accuracy of the estimated dip slips.
+Estimates fault dip slips using seismic amplitudes on opposite sides of fault
+skins. (Does not estimate strike slips.) Also includes methods to construct a
+complete field of fault dip-slip vectors, and to use those vectors to undo
+faulting apparent in a seismic image. *Unfaulting* a seismic image is one way
+to assess the accuracy of the estimated dip slips.
 
 #### FakeData (new in 2014)
 Generates synthetic seismic images useful for research and testing.
