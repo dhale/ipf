@@ -154,10 +154,8 @@ public class FaultCellGrid {
   }
 
   /**
-   * Sets the fault cell with specified indices.
-   * @param i1 sample index in 1st dimension.
-   * @param i2 sample index in 2nd dimension.
-   * @param i3 sample index in 3rd dimension.
+   * Sets the specified fault cell. Uses the cell's {x1,x2,x3} coordinates to
+   * determine the indices of the cell in this grid.
    * @param cell the fault cell.
    */
   public void set(FaultCell cell) {

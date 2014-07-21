@@ -19,10 +19,21 @@ not a complete system for seismic interpretation of geologic faults. Others
 earlier versions of one or more of the software tools provided in this
 repository.
 
+Although based on [research first published in 2012]
+(http://inside.mines.edu/~dhale/research.html)
+most of the software in this repository was written in the summer of 2014
+as Dave prepared for the upcoming lecture tour. This software will change
+during the course of that tour in response to questions and discussions
+inspired by the lecture.
+
+### Summary
+
+Here is a brief overview of key components:
+
 #### FaultScanner
-Creates images of fault likelihood, strike and dip. This class also includes
-methods for thinning such images and for using them to smooth seismic images
-along reflectors, while enhancing discontinuities at faults. An earlier
+Creates images of fault likelihood, strike and dip. This software also
+includes methods for thinning such images and for using them to smooth seismic
+images along reflectors, while enhancing discontinuities at faults. An earlier
 version of the computationally efficient scan over fault strikes and dips has
 been used in both commercial and in-house systems for seismic interpretation.
 

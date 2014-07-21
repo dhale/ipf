@@ -67,7 +67,7 @@ public class FaultScanner {
    * @param sv sampling of fault values in the returned array.
    * @param fv array of fault values to be counted.
    * @param fl array of fault likelihoods; null, for no weighting.
-   * @param array of frequencies of fault values.
+   * @return array of frequencies of fault values.
    */
   public static float[] getFrequencies(
     Sampling sv, float[][][] fv, float[][][] fl) {
