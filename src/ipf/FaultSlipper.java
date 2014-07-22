@@ -204,15 +204,15 @@ public class FaultSlipper {
     int n1 = s[0][0][0].length;
     int n2 = s[0][0].length;
     int n3 = s[0].length;
-    float[][][] p = new float[n3][n2][n1];
-    float[][][] t = new float[n3][n2][n1];
+    float[][][] sp = new float[n3][n2][n1];
+    float[][][] st = new float[n3][n2][n1];
     short[][][] k1 = new short[n3][n2][n1];
     short[][][] k2 = new short[n3][n2][n1];
     short[][][] k3 = new short[n3][n2][n1];
     float[][][][] sq = new float[3][n3][n2][n1];
     ClosestPointTransform cpt = new ClosestPointTransform();
-    cpt.apply(smark,s[0],t,k1,k2,k3);
-    clip(0.0f,100.0f,t,t);
+    cpt.apply(smark,s[0],st,k1,k2,k3);
+    clip(0.0f,100.0f,st,st);
     LocalDiffusionKernel.Stencil stencil = LocalDiffusionKernel.Stencil.D21;
     LocalDiffusionKernel ldk = new LocalDiffusionKernel(stencil);
     BlendedGridder3 bg = new BlendedGridder3();
@@ -226,11 +226,11 @@ public class FaultSlipper {
             int j1 = k1[i3][i2][i1];
             int j2 = k2[i3][i2][i1];
             int j3 = k3[i3][i2][i1];
-            p[i3][i2][i1] = si[j3][j2][j1];
+            sp[i3][i2][i1] = si[j3][j2][j1];
           }
         }
       }
-      bg.gridBlended(t,p,sq[is]);
+      bg.gridBlended(st,sp,sq[is]);
     }
     return sq;
   }

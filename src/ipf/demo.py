@@ -209,6 +209,7 @@ def goSlip():
   p3 = readImage(p3file)
   skins = readSkins(fskbase)
   fsl = FaultSlipper(gsx,p2,p3)
+  fsl.setOffset(2.0) # the default is 2.0 samples
   fsl.setZeroSlope(False) # True only if we want to show the error
   fsl.computeDipSlips(skins,minThrow,maxThrow)
   print "  dip slips computed, now reskinning ..."
@@ -231,7 +232,11 @@ def goSlip():
         clab="Fault throw (samples)",png="gxs1")
   s1,s2,s3 = fsl.interpolateDipSlips([s1,s2,s3],smark)
   plot3(gx,s1,cmin=0.0,cmax=10.0,cmap=jetFill(0.3),
-        clab="Fault throw (samples)",png="gxs1i")
+        clab="Vertical shift (samples)",png="gxs1i")
+  plot3(gx,s2,cmin=-2.0,cmax=2.0,cmap=jetFill(0.3),
+        clab="Inline shift (samples)",png="gxs2i")
+  plot3(gx,s3,cmin=-1.0,cmax=1.0,cmap=jetFill(0.3),
+        clab="Crossline shift (samples)",png="gxs3i")
   gw = fsl.unfault([s1,s2,s3],gx)
   plot3(gx)
   plot3(gw,clab="Amplitude",png="gw")
