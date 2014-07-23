@@ -215,13 +215,14 @@ public class FaultCell implements Serializable {
    * @param size the size (in samples) of the quads.
    * @param cmap the colormap used to compute rgb colors from floats.
    * @param cells the cells for which to return the arrays.
+   * @param lhc true, if left-handed coordinates; false, otherwise.
    * @return arrays {xyz,uvw,rgb}.
    */
   public static float[][] getXyzUvwRgbForThrow(
-      float size, ColorMap cmap, FaultCell[] cells) {
+      float size, ColorMap cmap, FaultCell[] cells, boolean lhc) {
     return getXyzUvwRgb(size,cmap,cells,new Get1() {
       public float get(FaultCell cell) { return cell.s1; }
-    });
+    },lhc);
   }
 
   /**
@@ -231,13 +232,14 @@ public class FaultCell implements Serializable {
    * @param size the size (in samples) of the quads.
    * @param cmap the colormap used to compute rgb colors from floats.
    * @param cells the cells for which to return the arrays.
+   * @param lhc true, if left-handed coordinates; false, otherwise.
    * @return arrays {xyz,uvw,rgb}.
    */
   public static float[][] getXyzUvwRgbForLikelihood(
-      float size, ColorMap cmap, FaultCell[] cells) {
+      float size, ColorMap cmap, FaultCell[] cells, boolean lhc) {
     return getXyzUvwRgb(size,cmap,cells,new Get1() {
       public float get(FaultCell cell) { return cell.fl; }
-    });
+    },lhc);
   }
 
   /////////////////////////////////////////////////////////////////////////
@@ -513,10 +515,12 @@ public class FaultCell implements Serializable {
    * @param cmap the colormap used to compute rgb colors from floats.
    * @param cells the cells for which to compute quads.
    * @param get1 used to get the float from a cell to be colormapped.
+   * @param lhc true, if left-handed coordinate system; false, otherwise.
    * @return arrays {xyz,uvw,rgb}.
    */
   private static float[][] getXyzUvwRgb(
-      float size, ColorMap cmap, FaultCell[] cells, Get1 get1) {
+      float size, ColorMap cmap, FaultCell[] cells, 
+      Get1 get1, boolean lhc) {
     FloatList xyz = new FloatList();
     FloatList uvw = new FloatList();
     FloatList fcl = new FloatList();
@@ -525,6 +529,10 @@ public class FaultCell implements Serializable {
     float[] qb = {0.0f, size,-size};
     float[] qc = {0.0f, size, size};
     float[] qd = {0.0f,-size, size};
+    if (lhc) {
+      float[] qt = qb; qb = qc; qc = qt;
+              qt = qd; qa = qd; qd = qt;
+    }
     for (FaultCell cell:cells) {
       float x1 = cell.x1;
       float x2 = cell.x2;

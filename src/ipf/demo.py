@@ -46,8 +46,8 @@ maxThrow = 15.0
 
 # Directory for saved png images. If None, png images will not be saved;
 # otherwise, must create the specified directory before running this script.
-#pngDir = None
-pngDir = "../../png/"
+pngDir = None
+#pngDir = "../../png/"
 
 # Processing begins here. When experimenting with one part of this demo, we
 # can comment out earlier parts that have already written results to files.
@@ -340,7 +340,7 @@ def plot3(f,g=None,cmin=None,cmax=None,cmap=None,clab=None,cint=None,
     ms.setEmissiveBack(Color(0.0,0.0,0.5))
     ss.add(ms)
     cmap = ColorMap(0.0,1.0,ColorMap.JET)
-    xyz,uvw,rgb = FaultCell.getXyzUvwRgbForLikelihood(0.5,cmap,cells)
+    xyz,uvw,rgb = FaultCell.getXyzUvwRgbForLikelihood(0.5,cmap,cells,False)
     qg = QuadGroup(xyz,uvw,rgb)
     qg.setStates(ss)
     sf.world.addChild(qg)
@@ -364,10 +364,10 @@ def plot3(f,g=None,cmin=None,cmax=None,cmap=None,clab=None,cint=None,
     for skin in skins:
       if smax>0.0: # show fault throws
         cmap = ColorMap(0.0,smax,ColorMap.JET)
-        xyz,uvw,rgb = skin.getCellXyzUvwRgbForThrow(size,cmap)
+        xyz,uvw,rgb = skin.getCellXyzUvwRgbForThrow(size,cmap,False)
       else: # show fault likelihood
         cmap = ColorMap(0.0,1.0,ColorMap.JET)
-        xyz,uvw,rgb = skin.getCellXyzUvwRgbForLikelihood(size,cmap)
+        xyz,uvw,rgb = skin.getCellXyzUvwRgbForLikelihood(size,cmap,False)
       qg = QuadGroup(xyz,uvw,rgb)
       qg.setStates(None)
       sg.addChild(qg)

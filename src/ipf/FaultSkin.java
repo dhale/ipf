@@ -231,9 +231,11 @@ public class FaultSkin implements Iterable<FaultCell>,Serializable {
    * size, and colors corresponding to fault likelihoods.
    * @param size size (in samples) of the quads.
    * @param cmap colormap used to compute rgb colors from cell properties.
+   * @param lhc true, if left-handed coordinate system; false, otherwise.
    */
-  public float[][] getCellXyzUvwRgbForLikelihood(float size, ColorMap cmap) {
-    return FaultCell.getXyzUvwRgbForLikelihood(size,cmap,getCells());
+  public float[][] getCellXyzUvwRgbForLikelihood(
+      float size, ColorMap cmap, boolean lhc) {
+    return FaultCell.getXyzUvwRgbForLikelihood(size,cmap,getCells(),lhc);
   }
 
   /**
@@ -242,9 +244,11 @@ public class FaultSkin implements Iterable<FaultCell>,Serializable {
    * size, and colors corresponding to fault throws.
    * @param size size (in samples) of the quads.
    * @param cmap colormap used to compute rgb colors from cell properties.
+   * @param lhc true, if left-handed coordinate system; false, otherwise.
    */
-  public float[][] getCellXyzUvwRgbForThrow(float size, ColorMap cmap) {
-    return FaultCell.getXyzUvwRgbForThrow(size,cmap,getCells());
+  public float[][] getCellXyzUvwRgbForThrow(
+      float size, ColorMap cmap, boolean lhc) {
+    return FaultCell.getXyzUvwRgbForThrow(size,cmap,getCells(),lhc);
   }
 
   /**
