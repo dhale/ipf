@@ -298,6 +298,9 @@ public class FaultScanner {
             ff[i3][i2][i1] = f000;
             pp[i3][i2][i1] = p000;
             tt[i3][i2][i1] = t000;
+          } else {
+            pp[i3][i2][i1] = NO_STRIKE;
+            tt[i3][i2][i1] = NO_DIP;
           }
         }
       }
@@ -375,17 +378,47 @@ public class FaultScanner {
       for (int i2=0; i2<n2; ++i2) {
         for (int i1=0; i1<n1; ++i1) {
           float fti = ft[i3][i2][i1];
-          gt[i3][i2][i1] = toDegrees(atan(scale*tan(toRadians(fti))));
+          if (fti!=NO_DIP)
+            gt[i3][i2][i1] = toDegrees(atan(scale*tan(toRadians(fti))));
         }
       }
     }
     return gt;
   }
 
+  /**
+   * Adjust strikes for coordinate system and rotation.
+   * @param lh true, if left-handed coordinate system; false, otherwise.
+   * @param pa, amount to add to azimuths.
+   * @param fp array of fault strikes measured in sample coordinates.
+   * @return array of fault strikes measured in physical coordinates.
+   */
+  public static float[][][] convertStrikes(
+      boolean lh, double pa, float[][][] fp) {
+    int n1 = fp[0][0].length;
+    int n2 = fp[0].length;
+    int n3 = fp.length;
+    float fpa = (float)pa;
+    float[][][] gp = copy(fp);
+    for (int i3=0; i3<n3; ++i3) {
+      for (int i2=0; i2<n2; ++i2) {
+        for (int i1=0; i1<n1; ++i1) {
+          float fpi = fp[i3][i2][i1];
+          if (fpi!=NO_STRIKE)
+            gp[i3][i2][i1] = range360((lh?360.0f-fpi:fpi)+fpa);
+        }
+      }
+    }
+    return gp;
+  }
+
   ///////////////////////////////////////////////////////////////////////////
   // private
 
   private double _sigmaPhi,_sigmaTheta;
+
+  private static final float NO_STRIKE = -0.00001f;
+  private static final float NO_DIP    = -0.00001f;
 
   private static void trace(String s) {
     System.out.println(s);

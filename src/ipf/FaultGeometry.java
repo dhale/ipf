@@ -236,7 +236,7 @@ public class FaultGeometry {
   public static float range360(double phi) {
     while (phi<0.0)
       phi += 360.0;
-    while (phi>360.0)
+    while (phi>=360.0)
       phi -= 360.0;
     return (float)phi;
   }
