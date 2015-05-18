@@ -56,7 +56,6 @@ def main(args):
   #goSlopes()
   goScan()
   goThin()
-  #goBlock()
   #goSmooth()
   #goSkin()
   #goSlip()
@@ -126,17 +125,6 @@ def goScan():
         clab="Fault strike (degrees)",cint=45,png="fp")
   plot3(gx,convertDips(ft),cmin=25,cmax=65,cmap=jetFill(1.0),
         clab="Fault dip (degrees)",png="ft")
-
-def goBlock():
-  print "goBlock ..."
-  gx = readImage(gxfile)
-  fl = readImage(fltfile)
-  fp = readImage(fptfile)
-  ft = readImage(fttfile)
-  blocker = FaultBlocker()
-  fb = blocker.findBlocks([fl,fp,ft]);
-  print "fb min =",min(fb)," max =",max(fb)
-  plot3(gx,fb,cmap=jetFill(0.5),cmin=-0.5,cmax=0.5,clab="Fault block?")
 
 def goThin():
   print "goThin ..."
