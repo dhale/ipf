@@ -52,22 +52,23 @@ pngDir = None
 # Processing begins here. When experimenting with one part of this demo, we
 # can comment out earlier parts that have already written results to files.
 def main(args):
-  goFakeData()
-  goSlopes()
+  #goFakeData()
+  #goSlopes()
   goScan()
   goThin()
-  goSmooth()
-  goSkin()
-  goSlip()
+  #goBlock()
+  #goSmooth()
+  #goSkin()
+  #goSlip()
 
 def goFakeData():
   #sequence = 'A' # 1 episode of faulting only
-  sequence = 'OA' # 1 episode of folding, followed by one episode of faulting
+  sequence = 'OA' # 1 episode of folding, followed by 1 episode of faulting
   #sequence = 'OOOOOAAAAA' # 5 episodes of folding, then 5 of faulting
   #sequence = 'OAOAOAOAOA' # 5 interleaved episodes of folding and faulting
-  nplanar = 3 # number of planar faults
+  nplanar = 3 # number of planar faults (no more than 3)
   conjugate = False # if True, two large planar faults will intersect
-  conical = False # if True, may want to set nplanar to 0 (or not!)
+  conical =  False # if True, may want to set nplanar to 0 (or not!)
   impedance = False # if True, data = impedance model
   wavelet = True # if False, no wavelet will be used
   noise = 0.5 # (rms noise)/(rms signal) ratio
@@ -125,6 +126,17 @@ def goScan():
         clab="Fault strike (degrees)",cint=45,png="fp")
   plot3(gx,convertDips(ft),cmin=25,cmax=65,cmap=jetFill(1.0),
         clab="Fault dip (degrees)",png="ft")
+
+def goBlock():
+  print "goBlock ..."
+  gx = readImage(gxfile)
+  fl = readImage(fltfile)
+  fp = readImage(fptfile)
+  ft = readImage(fttfile)
+  blocker = FaultBlocker()
+  fb = blocker.findBlocks([fl,fp,ft]);
+  print "fb min =",min(fb)," max =",max(fb)
+  plot3(gx,fb,cmap=jetFill(0.5),cmin=-0.5,cmax=0.5,clab="Fault block?")
 
 def goThin():
   print "goThin ..."
@@ -240,6 +252,26 @@ def goSlip():
   gw = fsl.unfault([s1,s2,s3],gx)
   plot3(gx)
   plot3(gw,clab="Amplitude",png="gw")
+
+def goScanOneStrikeDip():
+  print "goScanOneStrikeDip ..."
+  p2 = readImage(p2file)
+  p3 = readImage(p3file)
+  gx = readImage(gxfile)
+  gx = FaultScanner.taper(10,0,0,gx)
+  fs = FaultScanner(sigmaPhi,sigmaTheta)
+  def cd(theta):
+    return toDegrees(atan(tan(toRadians(theta))*5.0))
+  a1,a2,a3,a4,a5,a6 = 330,350,10,30,50,190
+  t1,t2,t3,t4,t5 = 20,25,30,35,40
+  angles = [(a3,t1),(a3,t2),(a3,t3),(a3,t4),(a3,t5),(a1,t5),
+            (a1,t3),(a2,t3),(a3,t3),(a4,t3),(a5,t3),(a6,t3)]
+  for phi,theta in angles:
+    suffix = "_"+str(phi)+"_"+str(theta)
+    theta = cd(theta)
+    fl,fp,ft = fs.scan(phi,phi,theta,theta,p2,p3,gx)
+    plot3(gx,fl,cmin=0.25,cmax=1,cmap=jetRamp(1.0),
+          clab="Fault likelihood",png="fl"+suffix)
 
 #############################################################################
 # graphics

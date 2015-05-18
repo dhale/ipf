@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-defaultTasks 'compileJava'
+defaultTasks 'jar'
 
 description = "Seismic image processing for geologic faults"
 sourceCompatibility = 1.7
